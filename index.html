@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Lock — Sliding Puzzle</title>
+  <meta name="description" content="A premium sliding puzzle game. Arrange tiles in order. Beat your best time." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Animated background -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="header" role="banner">
+      <div class="header-left">
+        <span class="logo-mark" aria-hidden="true">⬛</span>
+        <h1 class="logo">Grid<span class="logo-accent">Lock</span></h1>
+      </div>
+      <div class="header-right">
+        <button class="btn-icon" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+          <span id="themeIcon">☀</span>
+        </button>
+        <button class="btn-icon" id="soundToggle" aria-label="Toggle sound" title="Toggle sound effects">
+          <span id="soundIcon">♪</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main game area -->
+    <main class="main" role="main">
+
+      <!-- Difficulty selector -->
+      <section class="difficulty-section" aria-label="Difficulty selection">
+        <div class="difficulty-label">DIFFICULTY</div>
+        <div class="difficulty-buttons" role="group" aria-label="Choose difficulty">
+          <button class="diff-btn active" data-size="3" aria-pressed="true">
+            <span class="diff-name">EASY</span>
+            <span class="diff-desc">3 × 3</span>
+          </button>
+          <button class="diff-btn" data-size="4" aria-pressed="false">
+            <span class="diff-name">HARD</span>
+            <span class="diff-desc">4 × 4</span>
+          </button>
+          <button class="diff-btn" data-size="5" aria-pressed="false">
+            <span class="diff-name">EXPERT</span>
+            <span class="diff-desc">5 × 5</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Stats bar -->
+      <section class="stats-bar" aria-label="Game statistics">
+        <div class="stat-block">
+          <div class="stat-label">MOVES</div>
+          <div class="stat-value" id="moveCount" aria-live="polite">0</div>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-block">
+          <div class="stat-label">TIME</div>
+          <div class="stat-value" id="timerDisplay" aria-live="polite">00:00</div>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-block">
+          <div class="stat-label">BEST</div>
+          <div class="stat-value" id="bestScore" aria-live="polite">--:--</div>
+        </div>
+      </section>
+
+      <!-- Puzzle board -->
+      <div class="board-container">
+        <div
+          id="puzzleBoard"
+          class="puzzle-board"
+          role="grid"
+          aria-label="Sliding puzzle board"
+        ></div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls" role="group" aria-label="Game controls">
+        <button class="btn-control btn-secondary" id="undoBtn" aria-label="Undo last move" disabled>
+          ↩ UNDO
+        </button>
+        <button class="btn-control btn-primary" id="shuffleBtn" aria-label="Shuffle puzzle">
+          ⟳ SHUFFLE
+        </button>
+        <button class="btn-control btn-secondary" id="hintBtn" aria-label="Show a hint">
+          ⊙ HINT
+        </button>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Victory Modal -->
+  <div class="modal-overlay" id="victoryModal" role="dialog" aria-modal="true" aria-labelledby="victoryTitle" hidden>
+    <div class="modal">
+      <div class="confetti-container" id="confettiContainer" aria-hidden="true"></div>
+      <div class="modal-content">
+        <div class="modal-icon" aria-hidden="true">🏆</div>
+        <h2 class="modal-title" id="victoryTitle">PUZZLE SOLVED</h2>
+        <p class="modal-subtitle">Excellent work, solver.</p>
+        <div class="modal-stats">
+          <div class="modal-stat">
+            <div class="modal-stat-label">MOVES</div>
+            <div class="modal-stat-value" id="modalMoves">0</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">TIME</div>
+            <div class="modal-stat-value" id="modalTime">00:00</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">BEST</div>
+            <div class="modal-stat-value" id="modalBest">--:--</div>
+          </div>
+        </div>
+        <div class="modal-record" id="modalRecord" hidden>★ NEW BEST RECORD!</div>
+        <div class="modal-actions">
+          <button class="btn-control btn-primary" id="playAgainBtn">PLAY AGAIN</button>
+          <button class="btn-control btn-secondary" id="changeDiffBtn">CHANGE DIFFICULTY</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
